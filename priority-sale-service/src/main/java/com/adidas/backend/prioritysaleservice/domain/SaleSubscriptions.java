@@ -16,6 +16,13 @@ public final class SaleSubscriptions {
     adiClubMemberSubscriptions = new PriorityBlockingQueue<>();
   }
 
+  public SaleSubscriptions(
+      final Queue<UnregisteredUser> unregisteredUserSubscriptions,
+      final Queue<AdiClubMember> adiClubMemberSubscriptions) {
+    this.unregisteredUserSubscriptions = unregisteredUserSubscriptions;
+    this.adiClubMemberSubscriptions = adiClubMemberSubscriptions;
+  }
+
   public void addUser(final UnregisteredUser unregisteredUser) {
     if (unregisteredUser != null) {
       unregisteredUserSubscriptions.add(unregisteredUser);

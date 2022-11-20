@@ -30,10 +30,16 @@
         <maven.compiler.target>11</maven.compiler.target>
         <java.version>11</java.version>
         <spring.boot.starter.version>2.7.1</spring.boot.starter.version>
-        <lombok.version>1.18.24</lombok.version>
         <springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
         <netty-resolver.version>4.1.84.Final</netty-resolver.version>
+
+        <!-- Optional -->
+        <lombok.version>1.18.24</lombok.version>
+
+        <!-- Test -->
+        <java-faker.version>1.0.2</java-faker.version>
+        <junit.version>5.8.2</junit.version>
     </properties>
 
     <dependencyManagement>
@@ -41,12 +47,6 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-webflux</artifactId>
-                <version>${spring.boot.starter.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring.boot.starter.version}</version>
             </dependency>
 
@@ -59,15 +59,31 @@
             </dependency>
 
             <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc-openapi-ui.version}</version>
+            </dependency>
+
+            <!-- Optional -->
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
 
+            <!-- Test -->
             <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
-                <version>${springdoc-openapi-ui.version}</version>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring.boot.starter.version}</version>
             </dependency>
         </dependencies>
 
@@ -87,9 +103,17 @@
             <classifier>osx-aarch_64</classifier>
         </dependency>
 
+        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>${java-faker.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
