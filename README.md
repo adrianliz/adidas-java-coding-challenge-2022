@@ -1,7 +1,7 @@
 # What to do?
 The repo contains a skeleton of 4 Spring Boot applications, plus a Docker Compose configuration which spins up the following working environment.
 
-<img width="365" alt="image" src="https://user-images.githubusercontent.com/15728394/199699196-3bf20be2-cc51-4718-8cc2-454c8397c9d4.png">
+<img width="365" alt="image" src="https://unregisteredUser-images.githubusercontent.com/15728394/199699196-3bf20be2-cc51-4718-8cc2-454c8397c9d4.png">
 
 
 - _Public Service_ in the main entry point to our system, and the only accesible one to the public.
@@ -23,7 +23,28 @@ Do not forget our challenge Non Functional Requirements:
 
 
 We encourage you to take a look at our architectural principles. And of course, you have total freedom to propose or/and implement the improvements you want! Changes on the architecture, Introducing new services and/or containers, Reactive APIs, Distributed logging.... **Your creativity is more than welcome!**
-     
+
+# Technical Decisions
+
+- I'm following a simple hexagonal or ports and adapters clean architecture on each microservice.
+
+  This allows to develop a testable code (DIP of SOLID) with high change tolerance (OCP of SOLID)
+  and with low code coupling (we can change any infrastructure dependency at any time).
+
+  For this case, I assume that Spring Framework is part of the domain to simplify the development. 
+
+- Each microservice only know the existence of the public service or gateway.
+
+  This implies high cohesion and independence inside each microservice.
+
+- The public service or gateway is the responsible for coordination between the different microservices.
+
+# User Stories
+
+- [X] Add sale subscription: An user (adiClub or not) should be able to subscribe to the sale.
+- [] Generate next sale access: 
+  An internal system (front-end, CLI, etc.) should be able to retrieve the next user email that is allowed to access into the sale.
+
 # What would you need?
 The code requires the following tools:
 - Maven 3.8.4

@@ -1,4 +1,4 @@
-package com.adidas.backend.publicservice.controller;
+package com.adidas.backend.publicservice.infrastructure.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/dummy")
 public class DummyRestController {
 
-  private static final String DUMMY_RESPONSE = "Hello, this is a dummy response from public service";
+  private static final String DUMMY_RESPONSE =
+      "Hello, this is a dummy response from public service";
 
   @GetMapping
   public ResponseEntity<String> getDummyEndpointResponse() {
-    return ResponseEntity
-        .ok()
-        .body(DUMMY_RESPONSE);
+    return ResponseEntity.ok().body(DUMMY_RESPONSE);
   }
-
 }
