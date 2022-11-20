@@ -25,13 +25,13 @@ public final class SaleSubscriptions {
   }
 
   public void addUser(final UnregisteredUser unregisteredUser) {
-    if (unregisteredUser != null) {
+    if (unregisteredUser != null && !unregisteredUserSubscriptions.contains(unregisteredUser)) {
       unregisteredUserSubscriptions.add(unregisteredUser);
     }
   }
 
   public void addUser(final AdiClubMember adiClubMember) {
-    if (adiClubMember != null) {
+    if (adiClubMember != null && !adiClubMemberSubscriptions.contains(adiClubMember)) {
       adiClubMemberSubscriptions.add(adiClubMember);
     }
   }

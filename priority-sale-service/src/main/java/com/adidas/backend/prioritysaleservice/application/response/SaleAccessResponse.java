@@ -16,6 +16,10 @@ public final class SaleAccessResponse {
     this.userEmail = userEmail;
   }
 
+  public String userEmail() {
+    return userEmail;
+  }
+
   @Override
   public boolean equals(final Object o) {
     if (this == o) {

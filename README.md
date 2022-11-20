@@ -44,18 +44,21 @@ APIs, Distributed logging.... **Your creativity is more than welcome!**
 
 # User Stories
 
-- [X] Add sale subscription: An user (adiClub or not) should be able to subscribe to the sale.
+- [X] Add sale subscription: A user (adiClub or not) should be able to subscribe to the sale.
 - [X] Generate next sale access:
   An internal system (front-end, CLI, etc.) should be able to retrieve the next user email that is allowed to access
   into the sale.
+- [X] Validate if user email was already notified: A user only can be notified once.
+- [X] Send mail on next sale access: A user should receive an email when she/he is allowed to access into the sale.
 
 # Technical improvements
 
 - [X] Use api gateway to decouple microservices.
-- [X] Use asynchronous communication between microservices with spring webflux.
+- [X] Use asynchronous communication between microservices with spring webflux (reactive web client).
 - [X] Practical error handling with spring webflux.
+- [X] Unit testing of priority sale service.
+- [] Document endpoints with swagger.
 - [] Security between microservices with JWT authentication based on [Oauth2](https://oauth.net/2/).
-- [X] Unit testing.
 
 # What would you need?
 
@@ -85,20 +88,6 @@ Using podman you should first stop the compose environment:
 And then you will need to delete the images manually.
 
 # Useful commands
-
-### Test dummy endpoint in public-service from your local machine
-
-`curl localhost:8080/dummy -s`
-
-should return http status 200 and the message
-`Hello, this is a dummy response from public service`
-
-### Test adiclub-service endpoint from priority-sale-service container
-
-`docker exec adidas-be-challenge-prioritysaleservice bash -c "curl -s adidas-be-challenge-adiclubservice:8080/adiclub?emailAddress=test1@gmail.com"`
-
-should return a json response similar to:
-`{"email":"test1@gmail.com","points":511,"registrationDate":"2022-04-17T08:12:41.467026Z"}`
 
 ### Access Open API documentation
 

@@ -12,4 +12,9 @@ public class WebClientConfig {
   public WebClient adiclubWebClient(@Value("${adiclub.endpoint}") final String adiclubEndpoint) {
     return WebClient.builder().baseUrl(adiclubEndpoint).build();
   }
+
+  @Bean
+  public WebClient emailWebClient(@Value("${email.endpoint}") final String emailEndpoint) {
+    return WebClient.builder().baseUrl(emailEndpoint).build();
+  }
 }

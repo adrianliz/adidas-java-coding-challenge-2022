@@ -5,3 +5,8 @@ adiclub:
   endpoint: http://localhost:8080/adiclub
   search:
     endpoint: /search
+
+email:
+  endpoint: http://localhost:8080/email
+  send:
+    endpoint: /notifications
