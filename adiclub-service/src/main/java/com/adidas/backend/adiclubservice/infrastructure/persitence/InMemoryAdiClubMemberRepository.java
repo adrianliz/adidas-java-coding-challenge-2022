@@ -1,10 +1,10 @@
 package com.adidas.backend.adiclubservice.infrastructure.persitence;
 
 import com.adidas.backend.adiclubservice.domain.AdiClubMember;
+import com.adidas.backend.adiclubservice.domain.AdiClubMemberMembershipPoints;
+import com.adidas.backend.adiclubservice.domain.AdiClubMemberRegistrationDate;
 import com.adidas.backend.adiclubservice.domain.AdiClubMemberRepository;
-import com.adidas.backend.adiclubservice.domain.MembershipPoints;
-import com.adidas.backend.adiclubservice.domain.UserEmail;
-import com.adidas.backend.adiclubservice.domain.UserRegistrationDate;
+import com.adidas.backend.adiclubservice.domain.AdiClubMemberUserEmail;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -16,27 +16,27 @@ import org.springframework.stereotype.Repository;
 public final class InMemoryAdiClubMemberRepository implements AdiClubMemberRepository {
   private static final Random RANDOM = new Random(System.nanoTime());
 
-  private final List<UserEmail> REGISTERED_EMAILS;
+  private final List<AdiClubMemberUserEmail> registeredEmails;
 
   public InMemoryAdiClubMemberRepository() {
-    REGISTERED_EMAILS =
+    registeredEmails =
         List.of(
-            new UserEmail("uno@adidas.com"),
-            new UserEmail("dos@adidas.com"),
-            new UserEmail("tres@adidas.com"));
+            new AdiClubMemberUserEmail("uno@adidas.es"),
+            new AdiClubMemberUserEmail("dos@adidas.es"),
+            new AdiClubMemberUserEmail("tres@adidas.es"));
   }
 
   @Override
-  public Optional<AdiClubMember> find(final UserEmail email) {
-    return REGISTERED_EMAILS.stream()
+  public Optional<AdiClubMember> find(final AdiClubMemberUserEmail email) {
+    return registeredEmails.stream()
         .filter(e -> e.equals(email))
         .findFirst()
         .map(
             e ->
                 new AdiClubMember(
                     e,
-                    new UserRegistrationDate(
+                    new AdiClubMemberRegistrationDate(
                         Instant.now().minus(RANDOM.nextInt(365), ChronoUnit.DAYS)),
-                    new MembershipPoints(RANDOM.nextInt(5000))));
+                    new AdiClubMemberMembershipPoints(RANDOM.nextInt(5000))));
   }
 }

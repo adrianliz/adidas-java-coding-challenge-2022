@@ -1,6 +1,6 @@
 package com.adidas.backend.prioritysaleservice.application;
 
-import com.adidas.backend.prioritysaleservice.domain.SaleAccess;
+import com.adidas.backend.prioritysaleservice.application.response.SaleAccessResponse;
 import com.adidas.backend.prioritysaleservice.domain.SaleSubscriptions;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ public final class GenerateNextSaleAccessUseCase {
     this.saleSubscriptions = saleSubscriptions;
   }
 
-  public Optional<SaleAccess> generateNextAccess() {
-    return saleSubscriptions.generateNextAccess();
+  public Optional<SaleAccessResponse> generateNextAccess() {
+    return saleSubscriptions.generateNextAccess().map(SaleAccessResponse::from);
   }
 }

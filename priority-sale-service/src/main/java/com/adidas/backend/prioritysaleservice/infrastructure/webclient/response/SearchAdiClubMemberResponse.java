@@ -1,9 +1,9 @@
 package com.adidas.backend.prioritysaleservice.infrastructure.webclient.response;
 
 import com.adidas.backend.prioritysaleservice.domain.AdiClubMember;
-import com.adidas.backend.prioritysaleservice.domain.MembershipPoints;
+import com.adidas.backend.prioritysaleservice.domain.AdiClubMemberMembershipPoints;
+import com.adidas.backend.prioritysaleservice.domain.AdiClubMemberRegistrationDate;
 import com.adidas.backend.prioritysaleservice.domain.UserEmail;
-import com.adidas.backend.prioritysaleservice.domain.UserRegistrationDate;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.Instant;
 import lombok.Builder;
@@ -20,7 +20,7 @@ public final class SearchAdiClubMemberResponse {
   public AdiClubMember toAdiClubMember() {
     return new AdiClubMember(
         new UserEmail(userEmail),
-        new UserRegistrationDate(registrationDate),
-        new MembershipPoints(membershipPoints));
+        new AdiClubMemberRegistrationDate(registrationDate),
+        new AdiClubMemberMembershipPoints(membershipPoints));
   }
 }

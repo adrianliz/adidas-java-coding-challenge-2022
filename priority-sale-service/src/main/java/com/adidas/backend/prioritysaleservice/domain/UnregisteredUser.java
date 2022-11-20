@@ -6,7 +6,14 @@ public class UnregisteredUser implements EmailIdentifiable {
   private final UserEmail email;
 
   public UnregisteredUser(final UserEmail email) {
+    validate(email);
     this.email = email;
+  }
+
+  private void validate(final UserEmail email) {
+    if (email == null) {
+      throw new IllegalArgumentException("Email cannot be null");
+    }
   }
 
   @Override

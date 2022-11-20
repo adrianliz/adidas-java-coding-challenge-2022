@@ -1,5 +1,6 @@
 package com.adidas.backend.prioritysaleservice.domain;
 
+import java.util.Collections;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -13,7 +14,7 @@ public final class SaleSubscriptions {
 
   public SaleSubscriptions() {
     unregisteredUserSubscriptions = new ConcurrentLinkedQueue<>();
-    adiClubMemberSubscriptions = new PriorityBlockingQueue<>();
+    adiClubMemberSubscriptions = new PriorityBlockingQueue<>(11, Collections.reverseOrder());
   }
 
   public SaleSubscriptions(

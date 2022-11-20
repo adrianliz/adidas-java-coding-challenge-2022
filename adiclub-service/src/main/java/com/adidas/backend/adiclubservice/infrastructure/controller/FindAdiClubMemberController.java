@@ -3,8 +3,8 @@ package com.adidas.backend.adiclubservice.infrastructure.controller;
 import com.adidas.backend.adiclubservice.application.FindAdiClubMemberUseCase;
 import com.adidas.backend.adiclubservice.application.responses.AdiClubMemberResponse;
 import com.adidas.backend.adiclubservice.domain.AdiClubMemberNotFoundException;
+import com.adidas.backend.adiclubservice.domain.AdiClubMemberUserEmail;
 import com.adidas.backend.adiclubservice.domain.InvalidEmailException;
-import com.adidas.backend.adiclubservice.domain.UserEmail;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +29,7 @@ public class FindAdiClubMemberController {
       @RequestParam(value = "userEmail") final String rawUserEmail) {
 
     return Mono.fromCallable(() -> rawUserEmail)
-        .map(UserEmail::new)
+        .map(AdiClubMemberUserEmail::new)
         .onErrorMap(InvalidEmailException.class, e -> new ServerWebInputException(e.getMessage()))
         .map(findAdiClubMemberUseCase::findAdiClubMember)
         .onErrorMap(

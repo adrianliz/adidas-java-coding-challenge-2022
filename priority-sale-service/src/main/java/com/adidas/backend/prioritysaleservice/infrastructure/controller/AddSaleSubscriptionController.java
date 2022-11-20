@@ -7,10 +7,8 @@ import com.adidas.backend.prioritysaleservice.infrastructure.controller.request.
 import com.adidas.backend.prioritysaleservice.infrastructure.webclient.response.SearchAdiClubMemberResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -19,8 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value = "/priority-sale", consumes = MediaType.APPLICATION_JSON_VALUE)
-public final class AddSaleSubscriptionController {
+public final class AddSaleSubscriptionController extends PrioritySaleController {
 
   private final AddSaleSubscriptionUseCase addSaleSubscriptionUseCase;
   private final WebClient adiclubWebClient;

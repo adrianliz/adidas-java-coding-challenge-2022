@@ -45,7 +45,7 @@ APIs, Distributed logging.... **Your creativity is more than welcome!**
 # User Stories
 
 - [X] Add sale subscription: An user (adiClub or not) should be able to subscribe to the sale.
-- [] Generate next sale access:
+- [X] Generate next sale access:
   An internal system (front-end, CLI, etc.) should be able to retrieve the next user email that is allowed to access
   into the sale.
 
@@ -53,9 +53,9 @@ APIs, Distributed logging.... **Your creativity is more than welcome!**
 
 - [X] Use api gateway to decouple microservices.
 - [X] Use asynchronous communication between microservices with spring webflux.
-- [] Practical error handling with spring webflux.
+- [X] Practical error handling with spring webflux.
 - [] Security between microservices with JWT authentication based on [Oauth2](https://oauth.net/2/).
-- [] Unit testing.
+- [X] Unit testing.
 
 # What would you need?
 

@@ -3,19 +3,18 @@ package com.adidas.backend.adiclubservice.domain;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public final class UserEmail {
-  private static final Pattern EMAIL_REGEXP =
-      Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@adidas.com$");
+public final class AdiClubMemberUserEmail {
+  private static final Pattern SIMPLE_EMAIL_REGEXP = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
 
   private final String value;
 
-  public UserEmail(final String value) {
+  public AdiClubMemberUserEmail(final String value) {
     validate(value);
     this.value = value;
   }
 
   private void validate(final String value) {
-    if (value == null || value.isBlank() || !EMAIL_REGEXP.matcher(value).matches()) {
+    if (value == null || value.isBlank() || !SIMPLE_EMAIL_REGEXP.matcher(value).matches()) {
       throw new InvalidEmailException(String.format("Email <%s> is invalid", value));
     }
   }
@@ -32,7 +31,7 @@ public final class UserEmail {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    final UserEmail userEmail = (UserEmail) o;
+    final AdiClubMemberUserEmail userEmail = (AdiClubMemberUserEmail) o;
     return Objects.equals(value, userEmail.value);
   }
 
