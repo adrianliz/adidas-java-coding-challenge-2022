@@ -1,14 +1,17 @@
-package com.adidas.backend.prioritysaleservice.infrastructure.controller.response;
+package com.adidas.backend.prioritysaleservice.infrastructure.webclient.response;
 
 import com.adidas.backend.prioritysaleservice.domain.AdiClubMember;
 import com.adidas.backend.prioritysaleservice.domain.MembershipPoints;
-import com.adidas.backend.prioritysaleservice.domain.UnregisteredUser;
 import com.adidas.backend.prioritysaleservice.domain.UserEmail;
 import com.adidas.backend.prioritysaleservice.domain.UserRegistrationDate;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.Instant;
-import lombok.Data;
+import lombok.Builder;
+import lombok.extern.jackson.Jacksonized;
 
-@Data
+@Jacksonized
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public final class SearchAdiClubMemberResponse {
   private String userEmail;
   private Instant registrationDate;
@@ -19,9 +22,5 @@ public final class SearchAdiClubMemberResponse {
         new UserEmail(userEmail),
         new UserRegistrationDate(registrationDate),
         new MembershipPoints(membershipPoints));
-  }
-
-  public UnregisteredUser toUnregisteredUser() {
-    return new UnregisteredUser(new UserEmail(userEmail));
   }
 }

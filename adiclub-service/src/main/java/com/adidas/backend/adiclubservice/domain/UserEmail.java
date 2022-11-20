@@ -10,6 +10,7 @@ public final class UserEmail {
   private final String value;
 
   public UserEmail(final String value) {
+    validate(value);
     this.value = value;
   }
 

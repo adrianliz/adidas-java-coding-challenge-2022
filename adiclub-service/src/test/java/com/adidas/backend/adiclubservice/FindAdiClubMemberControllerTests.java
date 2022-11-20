@@ -25,7 +25,7 @@ class FindAdiClubMemberControllerTests {
       strings = {"user1@gmail.com", "user2@gmail.com", "user3@adiclub.com", "user4@adiclub.com"})
   void getAdiClubMemberInfoTest(final String email) {
     final ResponseEntity<AdiClubMemberResponse> response =
-        findAdiClubMemberController.getAdiClubMemberInfo(email);
+        findAdiClubMemberController.findAdiClubMember(email);
     Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
     Assertions.assertInstanceOf(
         Integer.class, Objects.requireNonNull(response.getBody()).getPoints());

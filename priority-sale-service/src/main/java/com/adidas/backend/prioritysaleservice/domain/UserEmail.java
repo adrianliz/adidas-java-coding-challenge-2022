@@ -10,7 +10,7 @@ public final class UserEmail {
 
   private void validate(final String value) {
     if (value == null || value.isBlank()) {
-      throw new InvalidEmailException(String.format("Email <%s> is invalid", value));
+      throw new InvalidEmailException("Email is required");
     }
   }
 

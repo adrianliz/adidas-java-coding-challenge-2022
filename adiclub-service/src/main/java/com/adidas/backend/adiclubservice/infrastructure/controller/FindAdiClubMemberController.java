@@ -7,13 +7,13 @@ import com.adidas.backend.adiclubservice.domain.InvalidEmailException;
 import com.adidas.backend.adiclubservice.domain.UserEmail;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebInputException;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping(value = "/adiclub", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,17 +25,15 @@ public class FindAdiClubMemberController {
   }
 
   @GetMapping("/search")
-  public ResponseEntity<AdiClubMemberResponse> getAdiClubMemberInfo(
+  public Mono<AdiClubMemberResponse> findAdiClubMember(
       @RequestParam(value = "userEmail") final String rawUserEmail) {
 
-    try {
-      final UserEmail userEmail = new UserEmail(rawUserEmail);
-      return ResponseEntity.ok(findAdiClubMemberUseCase.findAdiClubMember(userEmail));
-    } catch (final InvalidEmailException invalidEmailException) {
-      throw new ServerWebInputException(invalidEmailException.getMessage());
-    } catch (final AdiClubMemberNotFoundException adiClubMemberNotFoundException) {
-      throw new ResponseStatusException(
-          HttpStatus.NOT_FOUND, adiClubMemberNotFoundException.getMessage());
-    }
+    return Mono.fromCallable(() -> rawUserEmail)
+        .map(UserEmail::new)
+        .onErrorMap(InvalidEmailException.class, e -> new ServerWebInputException(e.getMessage()))
+        .map(findAdiClubMemberUseCase::findAdiClubMember)
+        .onErrorMap(
+            AdiClubMemberNotFoundException.class,
+            e -> new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage()));
   }
 }
