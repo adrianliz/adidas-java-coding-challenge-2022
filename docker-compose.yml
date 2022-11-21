@@ -9,6 +9,9 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    networks:
+      - keycloak-network
+      - private-network
     links:
       - "priority-sale-service"
 
@@ -18,6 +21,9 @@ services:
     build:
       context: priority-sale-service
       dockerfile: Dockerfile
+    networks:
+      - keycloak-network
+      - private-network
     links:
       - "adi-club-service"
       - "email-service"
@@ -28,6 +34,8 @@ services:
     build:
       context: adiclub-service
       dockerfile: Dockerfile
+    networks:
+      - private-network
 
   email-service:
     image: localhost/adidas-be-challenge-emailservice:latest
@@ -35,3 +43,46 @@ services:
     build:
       context: email-service
       dockerfile: Dockerfile
+    networks:
+      - private-network
+
+  keycloak:
+    image: jboss/keycloak:16.0.0 # NOTE: Custom image build working on Mac M1 (https://github.com/docker/for-mac/issues/5310)
+    container_name: keycloak
+    environment:
+      - DB_VENDOR=postgres
+      - DB_ADDR=keycloak-db
+      - DB_DATABASE=keycloak
+      - DB_USER=${KEYCLOAK_DB_USER}
+      - DB_PASSWORD=${KEYCLOAK_DB_PASSWORD}
+      - KEYCLOAK_IMPORT=/tmp/realm-export.json
+    ports:
+      - "10000:8080"
+    restart: unless-stopped
+    networks:
+      - keycloak-network
+    volumes:
+      - ./keycloak/realm-export.json:/tmp/realm-export.json
+    depends_on:
+      - keycloak-db
+
+  keycloak-db:
+    image: postgres:14.1-alpine
+    container_name: keycloak-db
+    restart: always
+    environment:
+      - POSTGRES_USER=${KEYCLOAK_DB_USER}
+      - POSTGRES_PASSWORD=${KEYCLOAK_DB_PASSWORD}
+    networks:
+      - keycloak-network
+    volumes:
+      - keycloak-db:/var/lib/postgresql/data
+
+networks:
+  keycloak-network:
+  private-network:
+
+volumes:
+  keycloak-db:
+    driver:
+      local

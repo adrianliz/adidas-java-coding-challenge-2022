@@ -42,6 +42,21 @@ APIs, Distributed logging.... **Your creativity is more than welcome!**
 
 - The public service or gateway is the responsible for coordination between the different microservices.
 
+- The public service use Keycloak as an authentication server.
+
+  This allows to have a centralized and reliable authentication server.
+
+- The public service only allows unauthorized access to the priority sale service.
+
+- The priority sale service uses [OAuth2 client credentials flow]
+  (https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) 
+  to access internal protected resources through the public gateway.
+
+# Architecture diagram
+
+![architecture.svg](/docs/architecture.svg)
+
+
 # User Stories
 
 - [X] Add sale subscription: A user (adiClub or not) should be able to subscribe to the sale.
@@ -57,8 +72,8 @@ APIs, Distributed logging.... **Your creativity is more than welcome!**
 - [X] Use asynchronous communication between microservices with spring webflux (reactive web client).
 - [X] Practical error handling with spring webflux.
 - [X] Unit testing of priority sale service.
+- [X] Security between microservices with JWT authentication based on [Oauth2](https://oauth.net/2/).
 - [] Document endpoints with swagger.
-- [] Security between microservices with JWT authentication based on [Oauth2](https://oauth.net/2/).
 
 # Future TO-DOs:
 

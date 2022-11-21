@@ -1,6 +1,20 @@
 server:
   port: 8082
 
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          priority-sale-service:
+            client-id: ${PRIORITY_SALE_CLIENT_ID:internal-service}
+            client-secret: ${PRIORITY_SALE_CLIENT_SECRET:jlsUQA4iHDem2hTd4YFJ6RxOk7LVVZBH}
+            authorization-grant-type: client_credentials
+            scope: openid
+        provider:
+          priority-sale-service:
+            token-uri: ${KEYCLOAK_TOKEN_URL:http://localhost:10000/auth/realms/dev/protocol/openid-connect/token}
+
 adiclub:
   endpoint: http://localhost:8080/adiclub
   search:
