@@ -3,6 +3,7 @@ package com.adidas.backend.emailservice.infrastructure.persistence;
 import com.adidas.backend.emailservice.domain.EmailNotification;
 import com.adidas.backend.emailservice.domain.EmailNotificationRepository;
 import com.adidas.backend.emailservice.domain.UserEmail;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -13,7 +14,7 @@ public final class InMemoryEmailNotificationRepository implements EmailNotificat
   private final Set<EmailNotification> emailNotifications;
 
   public InMemoryEmailNotificationRepository() {
-    emailNotifications = new HashSet<>();
+    emailNotifications = Collections.synchronizedSet(new HashSet<>());
   }
 
   @Override

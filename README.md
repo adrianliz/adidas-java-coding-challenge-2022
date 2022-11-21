@@ -60,6 +60,15 @@ APIs, Distributed logging.... **Your creativity is more than welcome!**
 - [] Document endpoints with swagger.
 - [] Security between microservices with JWT authentication based on [Oauth2](https://oauth.net/2/).
 
+# Future TO-DOs:
+
+Due to lack of time, I'm not able to implement all the features I would like to implement.
+
+- [] Add integration tests.
+- [] Add e2e tests.
+- [] Add docker compose for production environment.
+- [] Use kafka instead of Spring WebFlux for asynchronous communication based on domain events/query bus/command bus.
+
 # What would you need?
 
 The code requires the following tools:
