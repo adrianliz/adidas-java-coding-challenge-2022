@@ -10,10 +10,17 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - keycloak-network
       - private-network
-    links:
-      - "priority-sale-service"
+    environment:
+      - KEYCLOAK_REALM_URI=http://keycloak:8080/auth/realms/adidas
+      - ADICLUB_SERVICE_URI=adidas-be-challenge-adiclubservice
+      - PRIORITY_SALE_SERVICE_URI=adidas-be-challenge-prioritysaleservice
+      - EMAIL_SERVICE_URI=adidas-be-challenge-emailservice
+    depends_on:
+      - keycloak
+      - priority-sale-service
+      - adi-club-service
+      - email-service
 
   priority-sale-service:
     image: localhost/adidas-be-challenge-prioritysaleservice:latest
@@ -22,11 +29,14 @@ services:
       context: priority-sale-service
       dockerfile: Dockerfile
     networks:
-      - keycloak-network
       - private-network
-    links:
-      - "adi-club-service"
-      - "email-service"
+    environment:
+      - KEYCLOAK_TOKEN_URI=http://keycloak:8080/auth/realms/adidas/protocol/openid-connect/token
+      - GATEWAY_URI=adidas-be-challenge-publicservice
+      - PRIORITY_SALE_CLIENT_ID=${PRIORITY_SALE_CLIENT_ID}
+      - PRIORITY_SALE_CLIENT_SECRET=${PRIORITY_SALE_CLIENT_SECRET}
+    depends_on:
+      - keycloak
 
   adi-club-service:
     image: localhost/adidas-be-challenge-adiclubservice:latest
@@ -36,6 +46,8 @@ services:
       dockerfile: Dockerfile
     networks:
       - private-network
+    depends_on:
+      - keycloak
 
   email-service:
     image: localhost/adidas-be-challenge-emailservice:latest
@@ -45,6 +57,8 @@ services:
       dockerfile: Dockerfile
     networks:
       - private-network
+    depends_on:
+      - keycloak
 
   keycloak:
     image: jboss/keycloak:16.0.0 # NOTE: Custom image build working on Mac M1 (https://github.com/docker/for-mac/issues/5310)
@@ -60,7 +74,7 @@ services:
       - "10000:8080"
     restart: unless-stopped
     networks:
-      - keycloak-network
+      - private-network
     volumes:
       - ./keycloak/realm-export.json:/tmp/realm-export.json
     depends_on:
@@ -74,12 +88,11 @@ services:
       - POSTGRES_USER=${KEYCLOAK_DB_USER}
       - POSTGRES_PASSWORD=${KEYCLOAK_DB_PASSWORD}
     networks:
-      - keycloak-network
+      - private-network
     volumes:
       - keycloak-db:/var/lib/postgresql/data
 
 networks:
-  keycloak-network:
   private-network:
 
 volumes:

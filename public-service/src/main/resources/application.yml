@@ -1,6 +1,7 @@
 spring:
   main:
     web-application-type: reactive
+
   cloud:
     gateway:
       httpclient:
@@ -10,15 +11,15 @@ spring:
 
       routes:
         - id: adiclub-service
-          uri: http://localhost:8081
+          uri: http://${ADICLUB_SERVICE_URI:localhost}:8081
           predicates:
             - Path=/adiclub/**
         - id: priority-sale-service
-          uri: http://localhost:8082
+          uri: http://${PRIORITY_SALE_SERVICE_URI:localhost}:8082
           predicates:
             - Path=/priority-sale/**
         - id: email-service
-          uri: http://localhost:8083
+          uri: http://${EMAIL_SERVICE_URI:localhost}:8083
           predicates:
             - Path=/email/**
 
@@ -26,8 +27,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${KEYCLOAK_REALM_URL:http://localhost:10000/auth/realms/dev}
-          jwk-set-uri: ${KEYCLOAK_REALM_URL:http://localhost:10000/auth/realms/dev}/protocol/openid-connect/certs
+          issuer-uri: ${KEYCLOAK_REALM_URI:http://localhost:10000/auth/realms/adidas}
+          jwk-set-uri: ${KEYCLOAK_REALM_URI:http://localhost:10000/auth/realms/adidas}/protocol/openid-connect/certs
 
 logging:
   level:
@@ -37,4 +38,3 @@ logging:
       springframework:
         cloud:
           gateway: TRACE
-        security: TRACE

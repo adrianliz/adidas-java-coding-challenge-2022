@@ -56,7 +56,6 @@ APIs, Distributed logging.... **Your creativity is more than welcome!**
 
 ![architecture.svg](/docs/architecture.svg)
 
-
 # User Stories
 
 - [X] Add sale subscription: A user (adiClub or not) should be able to subscribe to the sale.
@@ -98,7 +97,28 @@ The code requires the following tools:
 
 `mvn clean install`
 
+### Build keycloak image on MAC M1
+
+Execute `./keycloak/build-keycloak-image-m1.zsh`
+
+### Build docker images & start the containers (locally)
+
+`docker-compose --env-file=.env.local up -d`
+
 ### Build docker images & start the containers
+
+Execute `./keycloak/create-admin-user.zsh $USER $PASSWORD` to create the admin user of keycloak.
+
+Create a new service account on keycloak.
+
+Create a `.env` file with the following content:
+
+```bash
+KEYCLOAK_DB_USER=?
+KEYCLOAK_DB_PASSWORD=?
+PRIORITY_SALE_CLIENT_ID=?
+PRIORITY_SALE_CLIENT_SECRET=?
+```
 
 `docker-compose up -d`
 
