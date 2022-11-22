@@ -1,7 +1,7 @@
 FROM openjdk:11
 
 RUN mkdir /opt/app
-COPY target/*.jar /opt/app/app.jar
+COPY target/public-service-*.jar /opt/app/app.jar
 
 ENV KEYCLOAK_REALM_URI=${KEYCLOAK_REALM_URI}
 ENV ADICLUB_SERVICE_URI=${ADICLUB_SERVICE_URI}

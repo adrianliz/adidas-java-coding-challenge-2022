@@ -7,7 +7,7 @@
         <artifactId>backend-challenge-parent</artifactId>
         <version>0.0.1</version>
     </parent>
-    <artifactId>members-service</artifactId>
+    <artifactId>priority-sale-service</artifactId>
     <version>0.0.1</version>
     <name>priority-sale-service</name>
     <description>Priority Sale Service</description>

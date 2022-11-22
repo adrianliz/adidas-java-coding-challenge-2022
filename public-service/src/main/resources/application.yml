@@ -31,7 +31,6 @@ spring:
           predicates:
             - Path=/swagger-ui/**,/swagger-ui.html,/webjars/**
 
-
   security:
     oauth2:
       resourceserver:

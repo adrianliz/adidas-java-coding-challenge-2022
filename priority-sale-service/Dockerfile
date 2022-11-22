@@ -1,7 +1,7 @@
 FROM openjdk:11
 
 RUN mkdir /opt/app
-COPY target/*.jar /opt/app/app.jar
+COPY target/priority-sale-service-*.jar /opt/app/app.jar
 
 ENV KEYCLOAK_TOKEN_URI=${KEYCLOAK_TOKEN_URI}
 ENV GATEWAY_URI=${GATEWAY_URI}
