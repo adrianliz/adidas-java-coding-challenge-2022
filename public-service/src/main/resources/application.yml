@@ -22,6 +22,15 @@ spring:
           uri: http://${EMAIL_SERVICE_URI:localhost}:8083
           predicates:
             - Path=/email/**
+        - id: priority-sale-service-api-docs
+          uri: http://${PRIORITY_SALE_SERVICE_URI:localhost}:8082
+          predicates:
+            - Path=/v3/api-docs/**
+        - id: priority-sale-service-swagger-ui
+          uri: http://${PRIORITY_SALE_SERVICE_URI:localhost}:8082
+          predicates:
+            - Path=/swagger-ui/**,/swagger-ui.html,/webjars/**
+
 
   security:
     oauth2:

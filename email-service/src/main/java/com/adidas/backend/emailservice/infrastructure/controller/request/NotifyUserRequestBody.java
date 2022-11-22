@@ -8,10 +8,10 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public final class NotifyUserEmailRequest {
+public final class NotifyUserRequestBody {
   private final String userEmail;
 
-  public UserEmail toUserEmail() {
+  public UserEmail getUserEmail() {
     return new UserEmail(userEmail);
   }
 }

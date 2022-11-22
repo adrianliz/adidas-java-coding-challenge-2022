@@ -3,10 +3,14 @@ package com.adidas.backend.prioritysaleservice.infrastructure.controller;
 import com.adidas.backend.prioritysaleservice.application.AddSaleSubscriptionUseCase;
 import com.adidas.backend.prioritysaleservice.domain.InvalidEmailException;
 import com.adidas.backend.prioritysaleservice.domain.UnregisteredUser;
-import com.adidas.backend.prioritysaleservice.infrastructure.controller.request.UserEmailRequestBody;
+import com.adidas.backend.prioritysaleservice.infrastructure.controller.request.AddSaleSubscriptionRequestBody;
 import com.adidas.backend.prioritysaleservice.infrastructure.webclient.response.SearchAdiClubMemberResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -32,10 +36,15 @@ public final class AddSaleSubscriptionController extends PrioritySaleController 
     this.adiclubSearchEndpoint = adiclubSearchEndpoint;
   }
 
-  @PostMapping("/subscriptions")
+  @PostMapping(value = "/subscriptions", consumes = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public Mono<Void> addSubscription(@RequestBody final UserEmailRequestBody userEmailRequestBody) {
-    return Mono.fromCallable(userEmailRequestBody::toUserEmail)
+  @Operation(summary = "Adds a new subscription to the sale.")
+  @ApiResponses(
+      value = {@ApiResponse(responseCode = "204", description = "Subscription added to the sale.")})
+  public Mono<Void> addSubscription(
+      @RequestBody final AddSaleSubscriptionRequestBody addSaleSubscriptionRequestBody) {
+
+    return Mono.fromCallable(addSaleSubscriptionRequestBody::getUserEmail)
         .onErrorMap(
             InvalidEmailException.class,
             e -> new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage()))

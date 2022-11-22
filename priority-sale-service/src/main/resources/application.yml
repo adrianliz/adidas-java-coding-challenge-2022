@@ -24,3 +24,6 @@ email:
   endpoint: http://${GATEWAY_URI:localhost}:8080/email
   send:
     endpoint: /notifications
+
+open-api:
+  gateway-public-uri: http://localhost:8080

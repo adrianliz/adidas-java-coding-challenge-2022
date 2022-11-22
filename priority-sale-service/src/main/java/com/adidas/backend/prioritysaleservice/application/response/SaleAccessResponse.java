@@ -2,10 +2,15 @@ package com.adidas.backend.prioritysaleservice.application.response;
 
 import com.adidas.backend.prioritysaleservice.domain.SaleAccess;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.Objects;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@Schema(description = "A sale access.")
 public final class SaleAccessResponse {
+  @Schema(
+      description = "The email of the user allowed to access to the sale.",
+      example = "uno@adidas.es")
   private final String userEmail;
 
   public static SaleAccessResponse from(final SaleAccess saleAccess) {

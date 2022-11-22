@@ -38,6 +38,9 @@ public class SecurityConfiguration implements WebFluxConfigurer {
         .authorizeExchange()
         .pathMatchers(HttpMethod.OPTIONS, "/**")
         .permitAll()
+        .pathMatchers(
+            "/webjars/**", "/swagger-ui.html", "/swagger-ui/index.html", "/v3/api-docs/**")
+        .permitAll()
         .pathMatchers(HttpMethod.POST, "/priority-sale/**")
         .permitAll()
         .anyExchange()

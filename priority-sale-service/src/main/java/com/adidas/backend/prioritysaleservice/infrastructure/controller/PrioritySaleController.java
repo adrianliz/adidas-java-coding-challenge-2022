@@ -1,10 +1,8 @@
 package com.adidas.backend.prioritysaleservice.infrastructure.controller;
 
-import org.springframework.http.MediaType;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping(
-    value = "/priority-sale",
-    consumes = MediaType.APPLICATION_JSON_VALUE,
-    produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = "Priority Sale", description = "Operations related to obtain access to the sale.")
+@RequestMapping(value = "/priority-sale")
 public abstract class PrioritySaleController {}

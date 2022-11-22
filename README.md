@@ -48,8 +48,7 @@ APIs, Distributed logging.... **Your creativity is more than welcome!**
 
 - The public service only allows unauthorized access to the priority sale service.
 
-- The priority sale service uses [OAuth2 client credentials flow]
-  (https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) 
+- The priority sale service uses [OAuth2 client credentials flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) 
   to access internal protected resources through the public gateway.
 
 # Architecture diagram
@@ -72,7 +71,7 @@ APIs, Distributed logging.... **Your creativity is more than welcome!**
 - [X] Practical error handling with spring webflux.
 - [X] Unit testing of priority sale service.
 - [X] Security between microservices with JWT authentication based on [Oauth2](https://oauth.net/2/).
-- [] Document endpoints with swagger.
+- [X] Document public endpoints with OpenAPI 3.0 (using springdoc).
 
 # Future TO-DOs:
 
@@ -136,7 +135,7 @@ And then you will need to delete the images manually.
 ### Access Open API documentation
 
 In order to see UI documentation you can write the following url in your browser:
-`http://localhost:8080/swagger-ui/index.html#/`
+`http://localhost:8080/swagger-ui.html`
 
 ### Watch public-service logs
 

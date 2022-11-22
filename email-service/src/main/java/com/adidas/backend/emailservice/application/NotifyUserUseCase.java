@@ -8,21 +8,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public final class NotifyEmailUseCase {
+public final class NotifyUserUseCase {
   private final EmailNotificationRepository emailNotificationRepository;
-  private final UserEmailAlreadyNotifiedUseCase userEmailAlreadyNotifiedUseCase;
+  private final UserAlreadyNotifiedValidator userAlreadyNotifiedValidator;
 
-  public NotifyEmailUseCase(
+  public NotifyUserUseCase(
       final EmailNotificationRepository emailNotificationRepository,
-      final UserEmailAlreadyNotifiedUseCase userEmailAlreadyNotifiedUseCase) {
+      final UserAlreadyNotifiedValidator userAlreadyNotifiedValidator) {
     this.emailNotificationRepository = emailNotificationRepository;
-    this.userEmailAlreadyNotifiedUseCase = userEmailAlreadyNotifiedUseCase;
+    this.userAlreadyNotifiedValidator = userAlreadyNotifiedValidator;
   }
 
-  public void notifyUserEmail(final UserEmail userEmail) {
-    if (userEmailAlreadyNotifiedUseCase
-        .isUserEmailAlreadyNotified(userEmail)
-        .userAlreadyNotified()) {
+  public void notifyUser(final UserEmail userEmail) {
+    if (userAlreadyNotifiedValidator.isUserAlreadyNotified(userEmail)) {
       return;
     }
 
