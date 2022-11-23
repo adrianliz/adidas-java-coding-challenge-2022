@@ -59,6 +59,10 @@ APIs, Distributed logging.... **Your creativity is more than welcome!**
 
 ![architecture.svg](/docs/architecture.svg)
 
+# CI/CD workflow
+
+![ci-cd.svg](/docs/ci-cd.svg)
+
 # User Stories
 
 - [X] Add sale subscription: A user (adiClub or not) should be able to subscribe to the sale.
