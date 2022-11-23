@@ -51,6 +51,10 @@ APIs, Distributed logging.... **Your creativity is more than welcome!**
 - The priority sale service uses [OAuth2 client credentials flow](https://auth0.com/docs/get-started/authentication-and-authorization-flow/client-credentials-flow) 
   to access internal protected resources through the public gateway.
 
+- A user (adiClub or not) only can be registered once to the priority sale.
+
+  She/he only will receive one email with the confirmation of the subscription.
+
 # Architecture diagram
 
 ![architecture.svg](/docs/architecture.svg)
@@ -79,6 +83,7 @@ Due to lack of time, I'm not able to implement all the features I would like to 
 
 - [] Add integration tests.
 - [] Add e2e tests.
+- [] Add real persistence.
 - [] Add docker compose for production environment.
 - [] Use kafka instead of Spring WebFlux for asynchronous communication based on domain events/query bus/command bus.
 

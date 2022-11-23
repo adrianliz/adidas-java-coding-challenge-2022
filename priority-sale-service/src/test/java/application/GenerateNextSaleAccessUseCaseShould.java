@@ -189,4 +189,27 @@ public final class GenerateNextSaleAccessUseCaseShould {
             Optional.of(SaleAccessResponse.from(SaleAccess.from(otherUnregisteredUser))));
     assertEquals(generateNextSaleAccessUseCase.generateNextAccess(), Optional.empty());
   }
+
+  @Test
+  public void deny_subscription_of_already_subscribed_user() {
+    final var saleSubscriptions = new SaleSubscriptions();
+    final var generateNextSaleAccessUseCase = new GenerateNextSaleAccessUseCase(saleSubscriptions);
+
+    final var unregisteredUser = UnregisteredUserMother.random();
+    saleSubscriptions.addUser(unregisteredUser);
+    saleSubscriptions.addUser(unregisteredUser);
+    saleSubscriptions.addUser(unregisteredUser);
+    saleSubscriptions.addUser(unregisteredUser);
+
+    generateNextSaleAccessUseCase.generateNextAccess();
+
+    saleSubscriptions.addUser(unregisteredUser);
+    saleSubscriptions.addUser(unregisteredUser);
+    saleSubscriptions.addUser(unregisteredUser);
+
+    final var expectedNextSaleAccess = Optional.empty();
+    final var nextSaleAccess = generateNextSaleAccessUseCase.generateNextAccess();
+
+    assertEquals(expectedNextSaleAccess, nextSaleAccess);
+  }
 }

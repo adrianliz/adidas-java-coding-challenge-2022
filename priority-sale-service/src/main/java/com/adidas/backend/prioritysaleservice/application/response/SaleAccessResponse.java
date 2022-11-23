@@ -9,7 +9,9 @@ import java.util.Objects;
 @Schema(description = "A sale access.")
 public final class SaleAccessResponse {
   @Schema(
-      description = "The email of the user allowed to access to the sale.",
+      description =
+          "The email of the next user allowed to access to the sale. "
+              + "She/He will receive an email with the access code.",
       example = "uno@adidas.es")
   private final String userEmail;
 
