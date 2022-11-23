@@ -1,6 +1,7 @@
 package domain;
 
 import com.adidas.backend.prioritysaleservice.domain.AdiClubMemberRegistrationDate;
+import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 public final class AdiClubMemberRegistrationDateMother {
@@ -9,12 +10,10 @@ public final class AdiClubMemberRegistrationDateMother {
   }
 
   public static AdiClubMemberRegistrationDate oneYearAgo() {
-    return new AdiClubMemberRegistrationDate(
-        MotherCreator.random().date().birthday().toInstant().minus(365, ChronoUnit.DAYS));
+    return new AdiClubMemberRegistrationDate(Instant.now().minus(365, ChronoUnit.DAYS));
   }
 
   public static AdiClubMemberRegistrationDate twoYearsAgo() {
-    return new AdiClubMemberRegistrationDate(
-        MotherCreator.random().date().birthday().toInstant().minus(365 * 2, ChronoUnit.DAYS));
+    return new AdiClubMemberRegistrationDate(Instant.now().minus(365 * 2, ChronoUnit.DAYS));
   }
 }

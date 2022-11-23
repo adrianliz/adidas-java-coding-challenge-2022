@@ -13,10 +13,10 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping(value = "/email", consumes = MediaType.APPLICATION_JSON_VALUE)
-public final class NotifyEmailController {
+public final class NotifyUserController {
   private final NotifyUserUseCase notifyUserUseCase;
 
-  public NotifyEmailController(final NotifyUserUseCase notifyUserUseCase) {
+  public NotifyUserController(final NotifyUserUseCase notifyUserUseCase) {
     this.notifyUserUseCase = notifyUserUseCase;
   }
 

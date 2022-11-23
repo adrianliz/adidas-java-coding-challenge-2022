@@ -6,7 +6,7 @@ public final class SaleAccess {
   private final UserEmail userEmail;
 
   public static SaleAccess from(final EmailIdentifiable emailIdentifiable) {
-    return new SaleAccess(emailIdentifiable.getEmail());
+    return new SaleAccess(emailIdentifiable.email());
   }
 
   public SaleAccess(final UserEmail userEmail) {

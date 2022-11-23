@@ -1,5 +1,6 @@
 package com.adidas.backend.prioritysaleservice.domain;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public final class AdiClubMember implements Comparable<AdiClubMember>, EmailIdentifiable {
@@ -35,8 +36,16 @@ public final class AdiClubMember implements Comparable<AdiClubMember>, EmailIden
   }
 
   @Override
-  public UserEmail getEmail() {
+  public UserEmail email() {
     return email;
+  }
+
+  private AdiClubMemberMembershipPoints membershipPoints() {
+    return membershipPoints;
+  }
+
+  private AdiClubMemberRegistrationDate registrationDate() {
+    return registrationDate;
   }
 
   @Override
@@ -58,10 +67,8 @@ public final class AdiClubMember implements Comparable<AdiClubMember>, EmailIden
 
   @Override
   public int compareTo(final AdiClubMember o) {
-    final int membershipPointsComparative = membershipPoints.compareTo(o.membershipPoints);
-
-    return membershipPointsComparative == 0
-        ? registrationDate.compareTo(o.registrationDate)
-        : membershipPointsComparative;
+    return Comparator.comparing(AdiClubMember::membershipPoints)
+        .thenComparing(AdiClubMember::registrationDate, Comparator.reverseOrder())
+        .compare(this, o);
   }
 }

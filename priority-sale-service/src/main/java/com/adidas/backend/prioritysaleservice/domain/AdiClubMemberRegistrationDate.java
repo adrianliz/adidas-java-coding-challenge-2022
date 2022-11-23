@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public final class AdiClubMemberRegistrationDate
     implements Comparable<AdiClubMemberRegistrationDate> {
+
   private final Instant value;
 
   public AdiClubMemberRegistrationDate(final Instant value) {

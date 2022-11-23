@@ -34,7 +34,7 @@ public class UnregisteredUser implements EmailIdentifiable {
   }
 
   @Override
-  public UserEmail getEmail() {
+  public UserEmail email() {
     return email;
   }
 }

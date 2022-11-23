@@ -14,25 +14,20 @@ import domain.AdiClubMemberMother;
 import domain.AdiClubMemberRegistrationDateMother;
 import domain.UnregisteredUserMother;
 import domain.UserEmailMother;
+import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 public final class GenerateNextSaleAccessUseCaseShould {
 
-  private void addSubscriptionsInRandomOrder(
+  private void addSubscriptions(
       final AddSaleSubscriptionUseCase useCase,
       final Stream<UnregisteredUser> unregisteredUsers,
       final Stream<AdiClubMember> adiClubMembers) {
 
-    unregisteredUsers
-        .sorted((o1, o2) -> ThreadLocalRandom.current().nextInt(-1, 2))
-        .forEach(useCase::addSubscription);
-
-    adiClubMembers
-        .sorted((o1, o2) -> ThreadLocalRandom.current().nextInt(-1, 2))
-        .forEach(useCase::addSubscription);
+    unregisteredUsers.forEach(useCase::addSubscription);
+    adiClubMembers.forEach(useCase::addSubscription);
   }
 
   @Test
@@ -42,8 +37,9 @@ public final class GenerateNextSaleAccessUseCaseShould {
     final var generateNextSaleAccessUseCase = new GenerateNextSaleAccessUseCase(saleSubscriptions);
 
     final var firstUnregisteredUser = UnregisteredUserMother.random();
-    final var secondUnregisteredUser = UnregisteredUserMother.random();
-    addSubscriptionsInRandomOrder(
+    final var secondUnregisteredUser =
+        UnregisteredUserMother.randomAndDifferentFrom(firstUnregisteredUser);
+    addSubscriptions(
         addSaleSubscriptionUseCase,
         Stream.of(firstUnregisteredUser, secondUnregisteredUser),
         Stream.empty());
@@ -63,11 +59,20 @@ public final class GenerateNextSaleAccessUseCaseShould {
     final var generateNextSaleAccessUseCase = new GenerateNextSaleAccessUseCase(saleSubscriptions);
 
     final var adiClubMemberWithLessPoints =
-        AdiClubMemberMother.AdiClubMemberBuilder.builder().withMembershipPoints(100).build();
+        AdiClubMemberMother.AdiClubMemberBuilder.builder()
+            .withUserEmail(UserEmailMother.adiclub())
+            .withMembershipPoints(100)
+            .withRegistrationDate(AdiClubMemberRegistrationDateMother.oneYearAgo())
+            .build();
     final var adiClubMemberWithMaxPoints =
-        AdiClubMemberMother.AdiClubMemberBuilder.builder().withMembershipPoints(200).build();
+        AdiClubMemberMother.AdiClubMemberBuilder.builder()
+            .withUserEmail(
+                UserEmailMother.adiclubAndDifferentFrom(adiClubMemberWithLessPoints.email()))
+            .withMembershipPoints(200)
+            .withRegistrationDate(AdiClubMemberRegistrationDateMother.oneYearAgo())
+            .build();
     final var unregisteredUser = UnregisteredUserMother.random();
-    addSubscriptionsInRandomOrder(
+    addSubscriptions(
         addSaleSubscriptionUseCase,
         Stream.of(unregisteredUser),
         Stream.of(adiClubMemberWithLessPoints, adiClubMemberWithMaxPoints));
@@ -94,12 +99,13 @@ public final class GenerateNextSaleAccessUseCaseShould {
             .build();
     final var adiClubMemberRegisteredTwoYearsAgo =
         AdiClubMemberMother.AdiClubMemberBuilder.builder()
-            .withUserEmail(UserEmailMother.adiclub())
+            .withUserEmail(
+                UserEmailMother.adiclubAndDifferentFrom(adiClubMemberRegisteredOneYearAgo.email()))
             .withMembershipPoints(100)
             .withRegistrationDate(AdiClubMemberRegistrationDateMother.twoYearsAgo())
             .build();
     final var unregisteredUser = UnregisteredUserMother.random();
-    addSubscriptionsInRandomOrder(
+    addSubscriptions(
         addSaleSubscriptionUseCase,
         Stream.of(unregisteredUser),
         Stream.of(adiClubMemberRegisteredOneYearAgo, adiClubMemberRegisteredTwoYearsAgo));
@@ -138,19 +144,25 @@ public final class GenerateNextSaleAccessUseCaseShould {
             .build();
     final var adiClubMemberRegisteredTwoYearsAgo =
         AdiClubMemberMother.AdiClubMemberBuilder.builder()
-            .withUserEmail(UserEmailMother.adiclub())
+            .withUserEmail(
+                UserEmailMother.adiclubAndDifferentFrom(adiClubMemberRegisteredOneYearAgo.email()))
             .withMembershipPoints(100)
             .withRegistrationDate(AdiClubMemberRegistrationDateMother.twoYearsAgo())
             .build();
     final var adiClubMemberWithMaxPoints =
         AdiClubMemberMother.AdiClubMemberBuilder.builder()
-            .withUserEmail(UserEmailMother.adiclub())
+            .withUserEmail(
+                UserEmailMother.adiclubAndDifferentFrom(
+                    List.of(
+                        adiClubMemberRegisteredOneYearAgo.email(),
+                        adiClubMemberRegisteredTwoYearsAgo.email())))
             .withMembershipPoints(200)
             .withRegistrationDate(AdiClubMemberRegistrationDateMother.twoYearsAgo())
             .build();
-    final var otherUnregisteredUser = UnregisteredUserMother.random();
     final var unregisteredUser = UnregisteredUserMother.random();
-    addSubscriptionsInRandomOrder(
+    final var otherUnregisteredUser =
+        UnregisteredUserMother.randomAndDifferentFrom(unregisteredUser);
+    addSubscriptions(
         addSaleSubscriptionUseCase,
         Stream.of(unregisteredUser, otherUnregisteredUser),
         Stream.of(
